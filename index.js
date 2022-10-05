@@ -1,20 +1,23 @@
-var readlineSync = require("readline-sync");
+const readlineSync = require("readline-sync");
 const chalk = require('chalk');
 
-var score = 0;
-var userName = readlineSync.question(chalk.blueBright("What is your name? "));
+let score = 0;
+const userName = readlineSync.question(chalk.blueBright("What is your name? "));
 
-console.log("Welcome " + chalk.bold.yellow(userName) + " to "+ chalk.bold.yellowBright("DO YOU KNOW ATUL?"));
+console.log("Welcome " + chalk.bold.yellow(userName) + " to " + chalk.bold.yellowBright("DO YOU KNOW ATUL?"));
 
-var highScore = {
-  name : "Maitryee",
-  score : 5
+const highScore = {
+  name: "Maitryee",
+  score: 5
 }
 
-function play(question, answer) {
-  var userAnswer = readlineSync.question(chalk.blueBright(question));
+function play(question, answer, options) {
 
-  if(userAnswer.toUpperCase() === answer.toUpperCase()) {
+  console.log(chalk.blueBright(question) + "\n" + chalk.red('Options:'));
+  options.forEach(option => console.log(option));
+  const userAnswer = readlineSync.question(chalk.blueBright('Type your answer : '));
+
+  if (userAnswer.toUpperCase() === answer.toUpperCase()) {
     console.log(chalk.bold.greenBright("You are right!"));
     score++;
   } else {
@@ -26,29 +29,34 @@ function play(question, answer) {
   console.log("--------------");
 }
 
-var questions = [ {
-  question : "What is my full name? ",
-  answer : "Atul Tameshwari"
+const questions = [{
+  question: "What is my full name? ",
+  answer: "Atul Tameshwari",
+  options: ['Atul Khatri', 'Atul Tameshwari', 'Atul Sharma', 'Atul Verma']
 }, {
-  question : "Which type of music do I like? ",
-  answer : "Trap Music"
+  question: "Which type of music do I like? ",
+  answer: "Trap",
+  options: ['Pop', 'Lofi', 'Rock', 'Trap']
 }, {
-  question : "Where do I live? ",
-  answer : "Vidisha"
+  question: "Where do I live? ",
+  answer: "Vidisha",
+  options: ['Vidisha', 'Bhopal', 'Indore', 'Ranchi']
 }, {
-  question : "Which is my most favorite ice-cream flavour? ",
-  answer : "Chocolate"
+  question: "Which is my most favorite ice-cream flavour? ",
+  answer: "Chocolate",
+  options: ['Vanilla', 'Chocolate', 'Strawberry', 'Pistachio']
 }, {
-  question : "Where do I study? ",
-  answer : "TIEIT"
+  question: "Where do I study? ",
+  answer: "TIEIT",
+  options: ['TIEIT', 'IIT', 'LNCT', 'NIT']
 }]
 
-for(var i = 0; i<questions.length; i++ ) {
+for (let i = 0; i < questions.length; i++) {
   var currentQuestion = questions[i];
-  play(currentQuestion.question, currentQuestion.answer);
+  play(currentQuestion.question, currentQuestion.answer, currentQuestion.options);
 }
 
 console.log("YAY! Your final score is :", score);
 
-console.log("The latest recorded highcore is of " + chalk.bold.yellowBright(highScore.name) + " with score " + chalk.bold.yellowBright(highScore.score));
+console.log("The latest recorded high score is of " + chalk.bold.yellowBright(highScore.name) + " with score " + chalk.bold.yellowBright(highScore.score));
 
